@@ -240,13 +240,13 @@ class ONVIFCamera(object):
         capabilities = self.devicemgmt.GetCapabilities({'Category': 'All'})
         for name in capabilities:
             try:
-                retrived_address=capabilities[name].XAddr
-                right=retrived_address.split("//")[1]
-                retrived_url=right.split("/")[0]
-                ip_address=retrived_url.split(":")[0]
-                port_address = retrived_url.split(":")[1]
+                retrived_address = capabilities[name].XAddr
+                right = retrived_address.split("//")[1]
+                retrived_url = right.split("/")[0]
+                ip_address = retrived_url.split(":")[0]
+                port_address = retrived_url.split(":")[1] if ":" in retrived_url else "80"
+
                 if (self.host != ip_address or self.port != port_address):
-                    remaining=right.split("/")[1]
                     new_address="http://"+self.host+":"+str(self.port)+"/"+right.split("/")[1]+"/"+right.split("/")[2]
                     capabilities[name].XAddr=new_address
             except:
